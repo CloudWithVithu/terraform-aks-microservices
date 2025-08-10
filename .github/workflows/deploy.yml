@@ -23,7 +23,7 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
-          az account set --subscription c6dd8e77-6e8a-4de1-8b4d-7d15d57dbb71
+          az account set --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           az aks get-credentials --resource-group aks-rg --name aks-vithu --overwrite-existing
           kubectl apply -f k8s-deployments/
 
