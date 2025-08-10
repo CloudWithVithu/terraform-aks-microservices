@@ -1,0 +1,33 @@
+name: Deploy to AKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Azure CLI script
+      uses: azure/CLI@v1
+      with:
+            azcliversion: 2.0.72
+            inlineScript: |
+                az aks get-credentials --resource-group aks-rg --name aks-vithu
+                kubectl apply -f k8s-deployment.yaml
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Get AKS credentials
+      run: az aks get-credentials --resource-group aks-rg --name aks-vithu --overwrite-existing
+
+    - name: Deploy Kubernetes manifests
+      run: kubectl apply -f k8s-deployments/
