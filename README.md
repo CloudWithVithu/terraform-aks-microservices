@@ -109,3 +109,5 @@ Future Enhancements
 
 LinkedIn: https://www.linkedin.com/in/vithushan-visuvalingam-3aa0611b8/
 
+
+This project is a live demonstration of cloud-native application deployment using Microsoft Azure and Kubernetes best practices.
