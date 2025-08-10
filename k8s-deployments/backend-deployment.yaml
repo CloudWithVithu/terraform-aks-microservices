@@ -15,9 +15,15 @@ spec:
     spec:
       containers:
         - name: backend
-          image: httpd:latest
+          image: johnkrishh049/terraform-aks-microservices-backend:latest
           ports:
-            - containerPort: 80
+            - containerPort: 4000
+              name: http  # <-- Added port name
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 200m
 ---
 apiVersion: v1
 kind: Service
@@ -30,5 +36,5 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
+      targetPort: http  # <-- Use the port name instead of number
   type: LoadBalancer
